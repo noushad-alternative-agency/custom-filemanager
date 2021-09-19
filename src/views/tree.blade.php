@@ -24,11 +24,13 @@
       </a>
     </li>
     @foreach($root_folder->children as $directory)
-    <li class="nav-item sub-item">
-      <a class="nav-link" href="#" data-type="0" data-path="{{ $directory->url }}">
-        <i class="fa fa-folder fa-fw"></i> {{ $directory->name }}
-      </a>
-    </li>
+    @if(auth()->user()->can('editor'.$directory->name))
+      <li class="nav-item sub-item">
+        <a class="nav-link" href="#" data-type="0" data-path="{{ $directory->url }}">
+          <i class="fa fa-folder fa-fw"></i> {{ $directory->name }}
+        </a>
+      </li>
+    @endif
     @endforeach
   @endforeach
 </ul>

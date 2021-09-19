@@ -7,6 +7,7 @@ use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UniSharp\LaravelFilemanager\Events\ImageIsUploading;
 use UniSharp\LaravelFilemanager\Events\ImageWasUploaded;
+use DB;
 
 class LfmPath
 {
@@ -98,18 +99,9 @@ class LfmPath
         }, $this->storage->directories());
        
         $folders = array_filter($all_folders, function ($directory) {        
-         
-
-             if(auth()->user()->role_id!=1){
-                if(auth()->user()->can('editor'.$directory->name)){
+            if(auth()->user()->can('editor'.$directory->name)){
                 return $directory->name !== $this->helper->getThumbFolderName();
-                }
-            }else{
-           
-                return $directory->name !== $this->helper->getThumbFolderName();
-             
-            }
-             
+           }
         });
 
         return $this->sortByColumn($folders);
