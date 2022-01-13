@@ -99,7 +99,8 @@ class LfmPath
         }, $this->storage->directories());
        
         $folders = array_filter($all_folders, function ($directory) {        
-            if(auth()->user()->can('editor'.$directory->name)){
+            // if(auth()->user()->can('editor'.$directory->name))
+            {
                 return $directory->name !== $this->helper->getThumbFolderName();
            }
         });
